@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.AsDao" >
+
+
+<!-- 商品的列表查询
+parameterType包装了查询条件
+resultType使用扩展对象
+-->
+<select id="queryAsList" 
+resultType="po.AsCustom">
+SELECT id,password,asname,type,name,status FROM assoc
+</select>
+
+<!-- <select id="findAccountById" parameterType="String" 
+resultType="po.AccountCustom">
+SELECT account_id,password,balance FROM account where account_id = #{account_id, jdbcType=VARCHAR}
+<where>
+<include refid="query_account_where"></include>
+</where>
+</select>
+
+<update id="updateAccountById" parameterType="po.AccountCustom">
+    UPDATE account SET
+    account_id = #{account_id},
+    password = #{password},
+    balance = #{balance}
+    WHERE
+    account_id = #{account_id}
+ </update> -->
+
+
+</mapper>
