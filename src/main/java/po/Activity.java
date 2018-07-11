@@ -7,7 +7,7 @@ public class Activity {
 	private String start_time;
 	private String end_time;
 	private String asid;
-	private String status;
+	private int status;
 	private String place;
 	public String getId() {
 		return id;
@@ -45,10 +45,10 @@ public class Activity {
 	public void setAsid(String asid) {
 		this.asid = asid;
 	}
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	public String getPlace() {

@@ -21,4 +21,9 @@ public class ActivityServiceImpl implements ActivityService{
 		return activityDao.queryActivityList();
 	}
 
+	public void addActivity(ActivityCustom activityCustom) throws Exception {
+		// TODO Auto-generated method stub
+		activityDao.addActivity(activityCustom);
+	}
+
 }

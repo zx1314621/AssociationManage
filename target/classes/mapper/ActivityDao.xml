@@ -21,25 +21,29 @@ SELECT id,password,asname,type,name,status FROM assoc where id = #{id, jdbcType=
     balance = #{balance}
     WHERE
     account_id = #{account_id}
- </update>
-<insert id="addAs" parameterType="po.AsCustom" useGeneratedKeys="false">
-    INSERT INTO assoc
+ </update> -->
+<insert id="addActivity" parameterType="po.ActivityCustom" useGeneratedKeys="false">
+    INSERT INTO activity
     ( id,
-      password,
-      asname,
-      type,
       name,
-      status
+      day,
+      start_time,
+      end_time,
+      asid,
+      status,
+      place
     )
     VALUES
     (
     #{id},
-    #{password},
-    #{asname},
-    #{type},
     #{name},
-    #{status}
+    #{day},
+    #{start_time},
+    #{end_time},
+    #{asid},
+    #{status},
+    #{place}
     )
-  </insert> -->
+  </insert>
 
 </mapper>

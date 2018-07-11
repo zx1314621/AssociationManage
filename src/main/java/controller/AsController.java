@@ -45,7 +45,7 @@ public class AsController {
 	public ModelAndView queryActivity(HttpSession session,String activity_id,String as_name,String add) throws Exception {
 		
 		String as_id = (String) session.getAttribute("as_id");
-		if(as_id==null) {
+		if(as_id==null&&add!=null) {
 			ModelAndView modelandview1 = new ModelAndView();
 			String flag1 = "1";
 			modelandview1.addObject("flag1",flag1);
@@ -56,7 +56,7 @@ public class AsController {
 		}
 		
 		
-		if(add.equals("1")) {
+		if(add!=null&&add.equals("1")) {
         	String activity_id1 = "";
     		String random1 = String.valueOf((int)(1+Math.random()*(9-0+1)));
     		String random2 = String.valueOf((int)(1+Math.random()*(9-0+1)));
@@ -108,7 +108,7 @@ public class AsController {
 	@RequestMapping("/launchActivity.action")
 	public ModelAndView launchActivity(HttpSession session,String check,String activity_id,String activity_name,String day,String start_time,String end_time, String place) throws Exception {
 		
-		if(check.equals("123")){
+		if(check!=null&&check.equals("123")){
 			List<ActivityCustom> activityList = new ArrayList<ActivityCustom>();
 			activityList = activityService.queryActivityList();
 			String enable = "1";
@@ -142,10 +142,11 @@ public class AsController {
 		activityCustom.setPlace(place);
 		String as_id = (String) session.getAttribute("as_id");
 		activityCustom.setAsid(as_id);
+		activityCustom.setStatus(0);
+		activityService.addActivity(activityCustom);
 		ModelAndView modelandview = new ModelAndView();
-		modelandview.addObject("activityCustom",activityCustom);
 		
-		modelandview.setViewName("launchactivity");
+		modelandview.setViewName("success");
 		
 		return modelandview;
 	}
