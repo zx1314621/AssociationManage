@@ -18,5 +18,16 @@ public class AsServiceImpl implements AsService{
 		// TODO Auto-generated method stub
 		return asDao.queryAsList();
 	}
+	public AsCustom findAsById(String id) throws Exception {
+		// TODO Auto-generated method stub
+		AsCustom asCustom = new AsCustom();
+		asCustom = asDao.findAsById(id);
+		return asCustom;
+	}
+	public void addAs(AsCustom asCustom) throws Exception {
+		// TODO Auto-generated method stub
+		asDao.addAs(asCustom);
+		
+	}
 
 }

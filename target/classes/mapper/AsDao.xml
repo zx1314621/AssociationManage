@@ -12,15 +12,12 @@ resultType="po.AsCustom">
 SELECT id,password,asname,type,name,status FROM assoc
 </select>
 
-<!-- <select id="findAccountById" parameterType="String" 
-resultType="po.AccountCustom">
-SELECT account_id,password,balance FROM account where account_id = #{account_id, jdbcType=VARCHAR}
-<where>
-<include refid="query_account_where"></include>
-</where>
+ <select id="findAsById" parameterType="String" 
+resultType="po.AsCustom">
+SELECT id,password,asname,type,name,status FROM assoc where id = #{id, jdbcType=VARCHAR}
 </select>
 
-<update id="updateAccountById" parameterType="po.AccountCustom">
+<!--<update id="updateAccountById" parameterType="po.AccountCustom">
     UPDATE account SET
     account_id = #{account_id},
     password = #{password},
@@ -28,6 +25,24 @@ SELECT account_id,password,balance FROM account where account_id = #{account_id,
     WHERE
     account_id = #{account_id}
  </update> -->
-
+<insert id="addAs" parameterType="po.AsCustom" useGeneratedKeys="false">
+    INSERT INTO assoc
+    ( id,
+      password,
+      asname,
+      type,
+      name,
+      status
+    )
+    VALUES
+    (
+    #{id},
+    #{password},
+    #{asname},
+    #{type},
+    #{name},
+    #{status}
+    )
+  </insert>
 
 </mapper>

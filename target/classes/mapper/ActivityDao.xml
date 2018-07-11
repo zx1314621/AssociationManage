@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.ActivityDao" >
+
+
+
+<select id="queryActivityList" 
+resultType="po.ActivityCustom">
+SELECT id,name,day,start_time,end_time,asid,status,place FROM activity
+</select>
+
+<!--  <select id="findAsById" parameterType="String" 
+resultType="po.AsCustom">
+SELECT id,password,asname,type,name,status FROM assoc where id = #{id, jdbcType=VARCHAR}
+</select>
+
+<update id="updateAccountById" parameterType="po.AccountCustom">
+    UPDATE account SET
+    account_id = #{account_id},
+    password = #{password},
+    balance = #{balance}
+    WHERE
+    account_id = #{account_id}
+ </update>
+<insert id="addAs" parameterType="po.AsCustom" useGeneratedKeys="false">
+    INSERT INTO assoc
+    ( id,
+      password,
+      asname,
+      type,
+      name,
+      status
+    )
+    VALUES
+    (
+    #{id},
+    #{password},
+    #{asname},
+    #{type},
+    #{name},
+    #{status}
+    )
+  </insert> -->
+
+</mapper>
