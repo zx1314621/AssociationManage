@@ -13,15 +13,24 @@
   <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
-            
+ <script>
 
- <%@page import="java.util.Date"%>
- <%@page import="java.text.SimpleDateFormat"%>  
-  
- <%
- SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");//设置日期格式
- String date = df.format(new Date());
- %>
+layui.use(['form', 'layedit', 'laydate'], function(){
+	  var form = layui.form
+	  ,layer = layui.layer
+	  ,layedit = layui.layedit
+	  ,laydate = layui.laydate;	  
+});	  
+
+function func4() {
+	layer.alert('请先登录!', {
+        icon: 2,
+        skin: 'layer-ext-moon' 
+    });
+}
+</script>           
+
+
 
 <form class="layui-form"  id="chooseForm" action="queryActivity.action" method="post">
  
@@ -32,7 +41,7 @@
     <div class="layui-inline">
       <label class="layui-form-label">活动编号</label>
       <div class="layui-input-inline">
-        <input type="text" class="layui-input" id="activity_id" name="as_id" placeholder="活动编号">
+        <input type="text" class="layui-input" id="activity_id" name="activity_id" placeholder="活动编号">
       </div>
     </div>
    
@@ -46,7 +55,7 @@
     <div class="layui-input-block">
       <button class="layui-btn" lay-submit="" lay-filter="demo1">点击查找</button>
       <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-      <button  style="float:right;margin-right:100px;"  class="layui-btn layui-btn-warm" name="add"  type="submit"  value="${easternList.ticket_id}"><i class="layui-icon">&#xe654;</i> 添加</button>
+      <button  style="float:right;margin-right:100px;"  class="layui-btn layui-btn-warm" name="add" value="1"  type="submit" ><i class="layui-icon">&#xe654;</i> 发起活动</button>
       
     </div>
       
@@ -82,7 +91,7 @@
     <td>${activityList.end_time }:00</td>
     <td>${activityList.place }</td>
     <td>${activityList.as_name }</td>
-      <td><button class="layui-btn layui-btn-normal layui-btn-mini news_del" id="ticket_id" name="ticket_id"  type="submit"  value="${ticketList.ticket_id}"><i class="layui-icon">&#xe615;</i> 购买</button></td>  
+      <td><button class="layui-btn layui-btn-normal layui-btn-mini news_del" id="activityId" name="activityId"  type="submit"  value="${activityList.id}"><i class="layui-icon">&#xe615;</i> 查看</button></td>  
 </tr>
 </c:forEach>
 </form>
@@ -123,5 +132,17 @@
         });
     });
 </script>
+<% String flag1 = (String)request.getAttribute("flag1");
+if(flag1!=null&&flag1.length()>0&&flag1.equals("1"))
+	
+	{%>
+ <script type="text/javascript">
+                window.onload=function(){
+                	func4(); }
+ </script>
+<%  
+session.setAttribute("flag1",null);
+	}
+%>
 </body>
 </html>
