@@ -54,15 +54,15 @@ function func4() {
  SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");//设置日期格式
  String date = df.format(new Date());
  %>
-<form class="layui-form"  id="chooseForm" action="launchActivity.action" method="post">
+<form class="layui-form"  id="chooseForm" action="submitEdit.action" method="post">
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-  <legend>发起活动</legend>
+  <legend>编辑活动</legend>
 </fieldset>
   <div class="layui-form-item">
    <div class="layui-inline">
       <label class="layui-form-label">活动编号</label>
       <div class="layui-input-inline">
-        <input type="text" name="activity_id" lay-verify="required" autocomplete="off" value="${activity_id}" class="layui-input" readonly>
+        <input type="text" name="activity_id" lay-verify="required" autocomplete="off" value="${activityCustom.id}" class="layui-input" readonly>
       </div>
     </div>
   </div>
@@ -70,7 +70,7 @@ function func4() {
    <div class="layui-inline">
       <label class="layui-form-label">活动名称</label>
       <div class="layui-input-inline">
-        <input type="text" name="activity_name" lay-verify="required" autocomplete="off"  <c:if test="${flagname == 1}">value="${activity_name}"</c:if>placeholder="请输入活动名称" class="layui-input">
+        <input type="text" name="activity_name" lay-verify="required" autocomplete="off"  value="${activityCustom.name}"class="layui-input">
         
       </div>
     </div>
@@ -79,7 +79,7 @@ function func4() {
    <div class="layui-inline">
       <label class="layui-form-label">活动日期</label>
       <div class="layui-input-inline">
-        <input type="text" id="day" name="day" lay-verify="required" autocomplete="off" <c:if test="${flagname == 1}">value="${day}"</c:if> <c:if test="${flagname != 1}">value="<%=date %>"</c:if> class="layui-input" >
+        <input type="text" id="day" name="day" lay-verify="required" autocomplete="off" value="${activityCustom.day}" class="layui-input" >
         
       </div>
     </div>
@@ -459,12 +459,11 @@ function func4() {
         </select>
       </div>
     </div>
-    <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1" name="check" id="check" value="123">检测是否可用</button>
 </div>
   
  <div class="layui-form-item">
     <div class="layui-input-block">
-      <button class="layui-btn" lay-submit="" lay-filter="demo1">点击发起</button>
+      <button class="layui-btn" lay-submit="" lay-filter="demo1">确认修改</button>
     </div>
   </div>
 </form> 

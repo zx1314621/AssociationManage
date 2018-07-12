@@ -26,4 +26,20 @@ public class ActivityServiceImpl implements ActivityService{
 		activityDao.addActivity(activityCustom);
 	}
 
+	public void deleteActivityByid(String id) throws Exception {
+		// TODO Auto-generated method stub
+		activityDao.deleteActivityByid(id);
+		
+	}
+
+	public void updatedeleteActivityStatusByID(String id) throws Exception {
+		// TODO Auto-generated method stub
+		activityDao.updatedeleteActivityStatusByID(id);
+	}
+
+	public void updateActivityByID(ActivityCustom activityCustom) throws Exception {
+		// TODO Auto-generated method stub
+		activityDao.updateActivityByID(activityCustom);
+	}
+
 }

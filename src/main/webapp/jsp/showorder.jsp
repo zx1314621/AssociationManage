@@ -23,43 +23,12 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 });	  
 
 function func4() {
-	layer.alert('请先登录!', {
-        icon: 2,
+	layer.alert('删除申请已提交!', {
+        icon: 1,
         skin: 'layer-ext-moon' 
     });
 }
-</script>           
-
-
-
-<form class="layui-form"  id="chooseForm" action="queryActivity.action" method="post">
- 
-
-<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-  <legend>基本信息</legend>
-</fieldset>
-    <div class="layui-inline">
-      <label class="layui-form-label">活动编号</label>
-      <div class="layui-input-inline">
-        <input type="text" class="layui-input" id="activity_id" name="activity_id" placeholder="活动编号">
-      </div>
-    </div>
-   
-   <div class="layui-inline">
-      <label class="layui-form-label">举办社团</label>
-      <div class="layui-input-inline">
-        <input type="text" class="layui-input" id="as_name" name="as_name" placeholder="举办社团">
-      </div>
-    </div>
-
-    <div class="layui-input-block">
-      <button class="layui-btn" lay-submit="" lay-filter="demo1">点击查找</button>
-      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-      <button  style="float:right;margin-right:100px;"  class="layui-btn layui-btn-warm" name="add" value="1"  type="submit" ><i class="layui-icon">&#xe654;</i> 发起活动</button>
-      
-    </div>
-      
-</form> 
+</script> 
  <table class="layui-table">
   <colgroup>
     <col width="150">
@@ -68,30 +37,34 @@ function func4() {
   </colgroup>
   <thead>
     <tr>
-      <th>活动编号</th>
+     <th>活动编号</th>
       <th>活动名称</th>
       <th>活动日期</th>
       <th>开始时间</th>
       <th>结束时间</th>
       <th>活动地点</th>
       <th>活动举办社团</th>
+      <th>活动状态</th>
       <th>操作</th>
     </tr> 
   </thead>
   <tbody>
-  <form action =showticket.action method = "post">
-
+<form action = editactivity.action  method = "post">
 <c:forEach var = "activityList" items = "${activityList}">
-
 <tr>
-    <td>${activityList.id }</td>
+     <td>${activityList.id }</td>
     <td>${activityList.name }</td>
     <td>${activityList.day }</td>
     <td>${activityList.start_time}:00</td>
     <td>${activityList.end_time }:00</td>
     <td>${activityList.place }</td>
     <td>${activityList.as_name }</td>
-      <td><button class="layui-btn layui-btn-normal layui-btn-mini news_del" id="activityId" name="activityId"  type="submit"  value="${activityList.id}"><i class="layui-icon">&#xe615;</i> 查看</button></td>  
+    <td>${activityList.activity_status}</td>
+    
+    <c:if test="${activityList.status==4}"><td></td></c:if>
+      <c:if test="${activityList.status!=4}"><td><button class="layui-btn layui-btn-sm layui-btn-normal" id="edit" name="edit"  type="submit"  value="${activityList.id}"><i class="layui-icon">&#xe642;</i> 编辑</button>
+      <button class="layui-btn layui-btn-sm layui-btn-danger" id="delete" name="delete"  type="submit"  value="${activityList.id}"><i class="layui-icon">&#xe640;</i> 删除</button></td> </c:if> 
+
 </tr>
 </c:forEach>
 </form>
@@ -132,8 +105,8 @@ function func4() {
         });
     });
 </script>
-<% String flag1 = (String)request.getAttribute("flag1");
-if(flag1!=null&&flag1.length()>0&&flag1.equals("1"))
+<% String deleteflag = (String)request.getAttribute("deleteflag");
+if(deleteflag!=null&&deleteflag.length()>0&&deleteflag.equals("1"))
 	
 	{%>
  <script type="text/javascript">
@@ -141,7 +114,7 @@ if(flag1!=null&&flag1.length()>0&&flag1.equals("1"))
                 	func4(); }
  </script>
 <%  
-request.setAttribute("flag1",null);
+request.setAttribute("deleteflag",null);
 	}
 %>
 </body>

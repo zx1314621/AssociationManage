@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.logging.log4j.core.appender.rewrite.MapRewritePolicy.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -132,15 +133,52 @@ public class AsController {
 			
 			ModelAndView modelandview = new ModelAndView();
 			if(enable.equals("0")) {
-				session.setAttribute("flag8", 0);
+				session.setAttribute("flag8", "0");
 			}
 			if(enable.equals("1")) {
-				session.setAttribute("flag8", 1);
+				session.setAttribute("flag8", "1");
 			}
-			session.setAttribute("enableflag", 1);
+			session.setAttribute("enableflag", "1");
 			modelandview.addObject("enable",enable);
 			modelandview.addObject("activity_id",activity_id);
 			modelandview.addObject("flagname",1);
+			modelandview.addObject("activity_name",activity_name);
+			modelandview.addObject("day",day);
+			modelandview.setViewName("launchactivity");
+			
+			//保存活动室选择信息
+			
+			if(place.equals("活动室1")) {
+				modelandview.addObject("flagplace",1);
+			}else if(place.equals("活动室2")) {
+				modelandview.addObject("flagplace",2);
+			}else if(place.equals("活动室3")) {
+				modelandview.addObject("flagplace",3);
+			}else if(place.equals("活动室4")) {
+				modelandview.addObject("flagplace",4);
+			}else if(place.equals("活动室5")) {
+				modelandview.addObject("flagplace",5);
+			}else if(place.equals("活动室6")) {
+				modelandview.addObject("flagplace",6);
+			}else if(place.equals("活动室7")) {
+				modelandview.addObject("flagplace",7);
+			}else if(place.equals("活动室8")) {
+				modelandview.addObject("flagplace",8);
+			}
+			
+			//保持出发日期信息
+			modelandview.addObject("flagstart",aa[0]);
+			modelandview.addObject("flagend",bb[0]);
+			return modelandview;
+		}
+		
+		//检测之后，若检测失败
+		String flag8 = String.valueOf(session.getAttribute("flag8")) ;
+		if(flag8==null||flag8.equals("0")) {
+			ModelAndView modelandview = new ModelAndView();
+			modelandview.addObject("activity_id",activity_id);
+			modelandview.addObject("flagname",1);
+			modelandview.addObject("flag8",flag8);
 			modelandview.addObject("activity_name",activity_name);
 			modelandview.addObject("day",day);
 			modelandview.setViewName("launchactivity");
@@ -170,16 +208,8 @@ public class AsController {
 			return modelandview;
 		}
 		
-		//检测之后，若检测失败
-		String flag8 = (String) session.getAttribute("flag8");
-		if(flag8.equals("0")) {
-			ModelAndView modelandview = new ModelAndView();
-			modelandview.setViewName("launchactivity");
-			return modelandview;
-		}
-		
 		//判断是否检测且是否检测成功
-		String enableflag = (String) session.getAttribute("enableflag");
+		String enableflag = String.valueOf(session.getAttribute("enableflag"));
 		if(enableflag.equals("1")&&flag8.equals("1"))
 		{ActivityCustom activityCustom = new ActivityCustom();
 		activityCustom.setId(activity_id);
@@ -201,17 +231,44 @@ public class AsController {
 		return modelandview;
 		}else {
 			ModelAndView modelandview = new ModelAndView();
+			modelandview.addObject("activity_id",activity_id);
+			modelandview.addObject("flagname",1);
+			modelandview.addObject("enableflag",enableflag);
+			modelandview.addObject("activity_name",activity_name);
+			modelandview.addObject("day",day);
 			modelandview.setViewName("launchactivity");
+			
+			//保存活动室选择信息
+			if(place.equals("活动室1")) {
+				modelandview.addObject("flagplace",1);
+			}else if(place.equals("活动室2")) {
+				modelandview.addObject("flagplace",2);
+			}else if(place.equals("活动室3")) {
+				modelandview.addObject("flagplace",3);
+			}else if(place.equals("活动室4")) {
+				modelandview.addObject("flagplace",4);
+			}else if(place.equals("活动室5")) {
+				modelandview.addObject("flagplace",5);
+			}else if(place.equals("活动室6")) {
+				modelandview.addObject("flagplace",6);
+			}else if(place.equals("活动室7")) {
+				modelandview.addObject("flagplace",7);
+			}else if(place.equals("活动室8")) {
+				modelandview.addObject("flagplace",8);
+			}
+			
+			//保持出发日期信息
+			modelandview.addObject("flagstart",aa[0]);
+			modelandview.addObject("flagend",bb[0]);
 			return modelandview;
 		}
 	}
-	
-	
+		
 	@RequestMapping("/signin.action")
 	public ModelAndView signin(HttpSession session,String id, String password) throws Exception
 	{
 		
-		session.setAttribute("enableflag", 0);
+		session.setAttribute("enableflag", "0");
 		AsCustom asCustom = asService.findAsById(id);
 		if(asCustom==null||asCustom.getStatus()==0)
 		{
@@ -234,10 +291,11 @@ public class AsController {
 			return modelandview;
 		}			
 	}
+	
 	@RequestMapping("/signup.action")
-	public ModelAndView signup(HttpSession session,String as_id, String password,String as_name,String as_type,String people_name) throws Exception
+    public ModelAndView signup(HttpSession session,String as_id, String password,String as_name,String as_type,String people_name) throws Exception
 	{
-		session.setAttribute("enableflag", 0);
+		session.setAttribute("enableflag", "0");
 		AsCustom asCustom = new AsCustom();
 		asCustom.setId(as_id);
 		asCustom.setPassword(password);
@@ -252,6 +310,165 @@ public class AsController {
 		ModelAndView modelandview = new ModelAndView();
 		modelandview.setViewName("signupsuccess");
 		return modelandview;
+		
+	}
+
+	@RequestMapping("/queryOwnActivity.action")
+	public ModelAndView queryOwnActivity(HttpSession session) throws Exception {
+		
+		List<ActivityCustom> activityList = activityService.queryActivityList();
+		AsCustom asCustom  = new AsCustom();
+		
+		String as_id = (String) session.getAttribute("as_id");
+		asCustom = asService.findAsById(as_id);
+		for(int i=0; i<activityList.size(); i++) {
+			if(activityList.get(i).getAsid().equals(as_id)) {
+				activityList.get(i).setAs_name(asCustom.getAsname());
+				if(activityList.get(i).getStatus()==0) {
+					activityList.get(i).setActivity_status("还未审批");
+				}
+				if(activityList.get(i).getStatus()==1) {
+					activityList.get(i).setActivity_status("还未完成");
+				}
+				if(activityList.get(i).getStatus()==2) {
+					activityList.get(i).setActivity_status("已完成");
+				}
+				if(activityList.get(i).getStatus()==3) {
+					activityList.get(i).setActivity_status("申请修改中");
+				}
+				if(activityList.get(i).getStatus()==4) {
+					activityList.get(i).setActivity_status("申请删除中");
+				}
+				continue;
+			}else {
+				activityList.remove(i);
+				i--;
+			}
+		}
+		
+		
+		
+		ModelAndView modelandview = new ModelAndView();
+		modelandview.addObject("activityList",activityList);
+		
+		modelandview.setViewName("showorder");
+		
+		return modelandview;
+	} 
+	
+	@RequestMapping("/editactivity.action")
+	public ModelAndView editactivity(HttpSession session,String edit, String delete) throws Exception {
+		
+		if(delete!=null) {
+			activityService.updatedeleteActivityStatusByID(delete);
+			
+			
+			List<ActivityCustom> activityList = activityService.queryActivityList();
+			AsCustom asCustom  = new AsCustom();
+			
+			String as_id = (String) session.getAttribute("as_id");
+			asCustom = asService.findAsById(as_id);
+			for(int i=0; i<activityList.size(); i++) {
+				if(activityList.get(i).getAsid().equals(as_id)) {
+					activityList.get(i).setAs_name(asCustom.getAsname());
+					if(activityList.get(i).getStatus()==0) {
+						activityList.get(i).setActivity_status("还未审批");
+					}
+					if(activityList.get(i).getStatus()==1) {
+						activityList.get(i).setActivity_status("还未完成");
+					}
+					if(activityList.get(i).getStatus()==2) {
+						activityList.get(i).setActivity_status("已完成");
+					}
+					if(activityList.get(i).getStatus()==3) {
+						activityList.get(i).setActivity_status("申请修改中");
+					}
+					if(activityList.get(i).getStatus()==4) {
+						activityList.get(i).setActivity_status("申请删除中");
+					}
+					continue;
+				}else {
+					activityList.remove(i);
+					i--;
+				}
+			}
+			ModelAndView modelandview = new ModelAndView();
+			modelandview.addObject("activityList",activityList);
+			modelandview.addObject("deleteflag","1");
+			modelandview.setViewName("showorder");
+			
+			return modelandview;
+		}
+		if(edit!=null) {
+			ActivityCustom activityCustom = new ActivityCustom();
+			List<ActivityCustom> activityList = activityService.queryActivityList();
+			for(int i=0; i<activityList.size(); i++) {
+				if(activityList.get(i).getId().equals(edit)) {
+					activityCustom = activityList.get(i);
+				}
+			}
+			ModelAndView modelandview = new ModelAndView();
+			String[] aa = activityCustom.getStart_time().split(":");
+			String[] bb = activityCustom.getEnd_time().split(":");
+			String place = activityCustom.getPlace();
+			if(place.equals("活动室1")) {
+				modelandview.addObject("flagplace",1);
+			}else if(place.equals("活动室2")) {
+				modelandview.addObject("flagplace",2);
+			}else if(place.equals("活动室3")) {
+				modelandview.addObject("flagplace",3);
+			}else if(place.equals("活动室4")) {
+				modelandview.addObject("flagplace",4);
+			}else if(place.equals("活动室5")) {
+				modelandview.addObject("flagplace",5);
+			}else if(place.equals("活动室6")) {
+				modelandview.addObject("flagplace",6);
+			}else if(place.equals("活动室7")) {
+				modelandview.addObject("flagplace",7);
+			}else if(place.equals("活动室8")) {
+				modelandview.addObject("flagplace",8);
+			}
+			modelandview.addObject("activityCustom",activityCustom);
+			modelandview.addObject("flagstart",aa[0]);
+			modelandview.addObject("flagend",bb[0]);
+			modelandview.setViewName("editActivity");
+			
+			return modelandview;
+		}
+		
+		
+		ModelAndView modelandview = new ModelAndView();
+		/*modelandview.addObject("activityList",activityList);*/
+		
+		modelandview.setViewName("showorder");
+		
+		return modelandview;
+	}
+	
+	@RequestMapping("/submitEdit.action")
+	public ModelAndView submitEdit(String activity_id, String activity_name, String day, String start_time, String end_time
+			,String place) throws Exception {
+		ActivityCustom activityCustom = new ActivityCustom();
+		List<ActivityCustom> activityList = activityService.queryActivityList();
+		for(int i=0; i<activityList.size(); i++) {
+			if(activityList.get(i).getId().equals(activity_id)) {
+				activityCustom = activityList.get(i);
+			}
+		}
+		activityCustom.setName(activity_name);
+		activityCustom.setDay(day);
+		String[] aa = start_time.split(":");
+		String[] bb = end_time.split(":");
+		activityCustom.setStart_time(aa[0]);
+		activityCustom.setEnd_time(bb[0]);
+		activityCustom.setPlace(place);
+		activityCustom.setStatus(3);
+		
+		activityService.updateActivityByID(activityCustom);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("editsuccess");
+		return modelAndView;
 		
 	}
 }

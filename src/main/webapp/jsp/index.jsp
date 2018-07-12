@@ -77,7 +77,7 @@ function func4() {
         shadeClose: true,
         shade: 0.8,
         area: ['1000px', '750px'],
-        content: 'showorder.action' //iframe的url
+        content: 'queryOwnActivity.action' //iframe的url
     });
 }
 </script>
