@@ -108,6 +108,11 @@ public class AsController {
 	@RequestMapping("/launchActivity.action")
 	public ModelAndView launchActivity(HttpSession session,String check,String activity_id,String activity_name,String day,String start_time,String end_time, String place) throws Exception {
 		
+		String[] aa = start_time.split(":");
+		String[] bb = end_time.split(":");
+		
+		
+		//点击检测按钮
 		if(check!=null&&check.equals("123")){
 			List<ActivityCustom> activityList = new ArrayList<ActivityCustom>();
 			activityList = activityService.queryActivityList();
@@ -115,27 +120,72 @@ public class AsController {
 			for(int i=0; i<activityList.size(); i++) {
 				if(activityList.get(i).getDay().equals(day)&&activityList.get(i).getPlace().equals(place)) {
 					int time1 = Integer.valueOf(activityList.get(i).getStart_time());
-					int time2 = Integer.valueOf(start_time);
+					int time2 = Integer.valueOf(aa[0]);
 					int time3 = Integer.valueOf(activityList.get(i).getEnd_time());
-					int time4 = Integer.valueOf(end_time);
-					if(time1<time2&&time4<time3) {
-						enable = "0";
+					int time4 = Integer.valueOf(bb[0]);
+					for(int j=time2; j<=time4; j++) {
+						if(time1<j&&j<time3)
+							enable = "0";
 					}
 				}
 			}
-			ModelAndView modelandview = new ModelAndView();
-			modelandview.addObject("enable",enable);
 			
+			ModelAndView modelandview = new ModelAndView();
+			if(enable.equals("0")) {
+				session.setAttribute("flag8", 0);
+			}
+			if(enable.equals("1")) {
+				session.setAttribute("flag8", 1);
+			}
+			session.setAttribute("enableflag", 1);
+			modelandview.addObject("enable",enable);
+			modelandview.addObject("activity_id",activity_id);
+			modelandview.addObject("flagname",1);
+			modelandview.addObject("activity_name",activity_name);
+			modelandview.addObject("day",day);
 			modelandview.setViewName("launchactivity");
 			
+			//保存活动室选择信息
+			if(place.equals("活动室1")) {
+				modelandview.addObject("flagplace",1);
+			}else if(place.equals("活动室2")) {
+				modelandview.addObject("flagplace",2);
+			}else if(place.equals("活动室3")) {
+				modelandview.addObject("flagplace",3);
+			}else if(place.equals("活动室4")) {
+				modelandview.addObject("flagplace",4);
+			}else if(place.equals("活动室5")) {
+				modelandview.addObject("flagplace",5);
+			}else if(place.equals("活动室6")) {
+				modelandview.addObject("flagplace",6);
+			}else if(place.equals("活动室7")) {
+				modelandview.addObject("flagplace",7);
+			}else if(place.equals("活动室8")) {
+				modelandview.addObject("flagplace",8);
+			}
+			
+			//保持出发日期信息
+			modelandview.addObject("flagstart",aa[0]);
+			modelandview.addObject("flagend",bb[0]);
 			return modelandview;
 		}
-		ActivityCustom activityCustom = new ActivityCustom();
+		
+		//检测之后，若检测失败
+		String flag8 = (String) session.getAttribute("flag8");
+		if(flag8.equals("0")) {
+			ModelAndView modelandview = new ModelAndView();
+			modelandview.setViewName("launchactivity");
+			return modelandview;
+		}
+		
+		//判断是否检测且是否检测成功
+		String enableflag = (String) session.getAttribute("enableflag");
+		if(enableflag.equals("1")&&flag8.equals("1"))
+		{ActivityCustom activityCustom = new ActivityCustom();
 		activityCustom.setId(activity_id);
 		activityCustom.setName(activity_name);
 		activityCustom.setDay(day);
-		String[] aa = start_time.split(":");
-		String[] bb = end_time.split(":");
+		
 		activityCustom.setStart_time(aa[0]);
 		 
 		activityCustom.setEnd_time(bb[0]);
@@ -149,20 +199,19 @@ public class AsController {
 		modelandview.setViewName("success");
 		
 		return modelandview;
+		}else {
+			ModelAndView modelandview = new ModelAndView();
+			modelandview.setViewName("launchactivity");
+			return modelandview;
+		}
 	}
 	
 	
 	@RequestMapping("/signin.action")
 	public ModelAndView signin(HttpSession session,String id, String password) throws Exception
 	{
-		session.setAttribute("f1", 1);
-		session.setAttribute("f2", 1);
-		session.setAttribute("f3", 1);
-		session.setAttribute("f4", 1);
-		session.setAttribute("f5", 1);
-		session.setAttribute("f6", 1);
-		session.setAttribute("f7", 1);
-		session.setAttribute("f8", 1);
+		
+		session.setAttribute("enableflag", 0);
 		AsCustom asCustom = asService.findAsById(id);
 		if(asCustom==null||asCustom.getStatus()==0)
 		{
@@ -188,14 +237,7 @@ public class AsController {
 	@RequestMapping("/signup.action")
 	public ModelAndView signup(HttpSession session,String as_id, String password,String as_name,String as_type,String people_name) throws Exception
 	{
-		session.setAttribute("f1", 1);
-		session.setAttribute("f2", 1);
-		session.setAttribute("f3", 1);
-		session.setAttribute("f4", 1);
-		session.setAttribute("f5", 1);
-		session.setAttribute("f6", 1);
-		session.setAttribute("f7", 1);
-		session.setAttribute("f8", 1);
+		session.setAttribute("enableflag", 0);
 		AsCustom asCustom = new AsCustom();
 		asCustom.setId(as_id);
 		asCustom.setPassword(password);

@@ -34,6 +34,18 @@ function func2() {
         skin: 'layer-ext-moon' 
     });
 }
+function func3() {
+	layer.alert('发起失败时间场地冲突!', {
+        icon: 2,
+        skin: 'layer-ext-moon' 
+    });
+}
+function func4() {
+	layer.alert('请先检测场地是否可用!', {
+        icon: 2,
+        skin: 'layer-ext-moon' 
+    });
+}
 </script>
  <%@page import="java.util.Date"%>
  <%@page import="java.text.SimpleDateFormat"%>  
@@ -58,7 +70,7 @@ function func2() {
    <div class="layui-inline">
       <label class="layui-form-label">活动名称</label>
       <div class="layui-input-inline">
-        <input type="text" name="activity_name" lay-verify="required" autocomplete="off" placeholder="请输入活动名称" class="layui-input">
+        <input type="text" name="activity_name" lay-verify="required" autocomplete="off"  <c:if test="${flagname == 1}">value="${activity_name}"</c:if>placeholder="请输入活动名称" class="layui-input">
         
       </div>
     </div>
@@ -67,7 +79,7 @@ function func2() {
    <div class="layui-inline">
       <label class="layui-form-label">活动日期</label>
       <div class="layui-input-inline">
-        <input type="text" id="day" name="day" lay-verify="required" autocomplete="off" value="<%=date %>" class="layui-input" >
+        <input type="text" id="day" name="day" lay-verify="required" autocomplete="off" <c:if test="${flagname == 1}">value="${day}"</c:if> <c:if test="${flagname != 1}">value="<%=date %>"</c:if> class="layui-input" >
         
       </div>
     </div>
@@ -77,31 +89,156 @@ function func2() {
       <label class="layui-form-label">开始时间</label>
       <div class="layui-input-inline">
        <select id="start_time" name="start_time"  lay-verify="required" lay-search="" >
-          <option >0:00</option>
-          <option >1:00</option>
-          <option >2:00</option>
-          <option >3:00</option>
-          <option >4:00</option>
-          <option >5:00</option>
-          <option >6:00</option>
-          <option >7:00</option>
-          <option >8:00</option>
-          <option >9:00</option>
-          <option >10:00</option>
-          <option >11:00</option>
-          <option >12:00</option>
-          <option >13:00</option>
-          <option >14:00</option>
-          <option >15:00</option>
-          <option >16:00</option>
-          <option >17:00</option>
-          <option >18:00</option>
-          <option >19:00</option>
-          <option >20:00</option>
-          <option >21:00</option>
-          <option >22:00</option>
-          <option >23:00</option>
-          <option >24:00</option>
+       <c:if test="${flagstart==0 }">
+       <option selected>0:00</option>
+       </c:if>
+        <c:if test="${flagstart!=0 }">
+       <option>0:00</option>
+       </c:if>
+       <c:if test="${flagstart==1 }">
+       <option selected>1:00</option>
+       </c:if>
+        <c:if test="${flagstart!=1 }">
+       <option>1:00</option>
+       </c:if>
+        <c:if test="${flagstart==2 }">
+       <option selected>2:00</option>
+       </c:if>
+        <c:if test="${flagstart!=2 }">
+       <option >2:00</option>
+       </c:if>
+        <c:if test="${flagstart==3 }">
+       <option selected>3:00</option>
+       </c:if>
+       <c:if test="${flagstart!=3 }">
+       <option>3:00</option>
+       </c:if>  
+       <c:if test="${flagstart==4 }">
+       <option selected>4:00</option>
+       </c:if>
+       <c:if test="${flagstart!=4 }">
+       <option>4:00</option>
+       </c:if>
+       <c:if test="${flagstart==5 }">
+       <option selected>5:00</option>
+       </c:if>
+       <c:if test="${flagstart!=5 }">
+       <option>5:00</option>
+       </c:if>
+       <c:if test="${flagstart==6 }">
+       <option selected>6:00</option>
+       </c:if>
+       <c:if test="${flagstart!=6 }">
+       <option>6:00</option>
+       </c:if>
+       <c:if test="${flagstart==7 }">
+       <option selected>7:00</option>
+       </c:if>
+       <c:if test="${flagstart!=7 }">
+       <option>7:00</option>
+       </c:if>
+       <c:if test="${flagstart==8 }">
+       <option selected>8:00</option>
+       </c:if>
+       <c:if test="${flagstart!=8 }">
+       <option >8:00</option>
+       </c:if>
+       <c:if test="${flagstart==9 }">
+       <option selected>9:00</option>
+       </c:if>
+       <c:if test="${flagstart!=9 }">
+       <option>9:00</option>
+       </c:if>
+       <c:if test="${flagstart==10 }">
+       <option selected>10:00</option>
+       </c:if>
+       <c:if test="${flagstart!=10 }">
+       <option>10:00</option>
+       </c:if>
+       <c:if test="${flagstart==11}">
+       <option selected>11:00</option>
+       </c:if>
+       <c:if test="${flagstart!=11 }">
+       <option>11:00</option>
+       </c:if>
+       <c:if test="${flagstart==12 }">
+       <option selected>12:00</option>
+       </c:if>
+       <c:if test="${flagstart!=12 }">
+       <option>12:00</option>
+       </c:if>
+       <c:if test="${flagstart==13 }">
+       <option selected>13:00</option>
+       </c:if>
+       <c:if test="${flagstart!=13 }">
+       <option>13:00</option>
+       </c:if>
+       <c:if test="${flagstart==14 }">
+       <option selected>14:00</option>
+       </c:if>
+       <c:if test="${flagstart!=14 }">
+       <option>14:00</option>
+       </c:if>
+       <c:if test="${flagstart==15 }">
+       <option selected>15:00</option>
+       </c:if>
+       <c:if test="${flagstart!=15 }">
+       <option >15:00</option>
+       </c:if>
+       <c:if test="${flagstart==16 }">
+       <option selected>16:00</option>
+       </c:if>
+       <c:if test="${flagstart!=16 }">
+       <option >16:00</option>
+       </c:if>
+       <c:if test="${flagstart==17 }">
+       <option selected>17:00</option>
+       </c:if>
+       <c:if test="${flagstart!=17 }">
+       <option>17:00</option>
+       </c:if>
+       <c:if test="${flagstart==18}">
+       <option selected>18:00</option>
+       </c:if>
+       <c:if test="${flagstart!=18}">
+       <option>18:00</option>
+       </c:if>
+       <c:if test="${flagstart==19 }">
+       <option selected>19:00</option>
+       </c:if>
+       <c:if test="${flagstart!=19 }">
+       <option>19:00</option>
+       </c:if>
+       <c:if test="${flagstart==20 }">
+       <option selected>20:00</option>
+       </c:if>
+       <c:if test="${flagstart!=20 }">
+       <option>20:00</option>
+       </c:if>
+       <c:if test="${flagstart==21 }">
+       <option selected>21:00</option>
+       </c:if>
+       <c:if test="${flagstart!=21 }">
+       <option>21:00</option>
+       </c:if>
+       <c:if test="${flagstart==22 }">
+       <option selected>22:00</option>
+       </c:if>
+       <c:if test="${flagstart!=22 }">
+       <option>22:00</option>
+       </c:if>
+       <c:if test="${flagstart==23 }">
+       <option selected>23:00</option>
+       </c:if>
+       <c:if test="${flagstart!=23 }">
+       <option>23:00</option>
+       </c:if>
+       <c:if test="${flagstart==24 }">
+       <option selected>24:00</option>
+       </c:if>
+       <c:if test="${flagstart!=24 }">
+       <option>24:00</option>
+       </c:if>
         </select>
       </div>
     </div>
@@ -111,31 +248,156 @@ function func2() {
       <label class="layui-form-label">结束时间</label>
       <div class="layui-input-inline">
        <select id="end_time" name="end_time"  lay-verify="required" lay-search="" >
-          <option >0:00</option>
-          <option >1:00</option>
-          <option >2:00</option>
-          <option >3:00</option>
-          <option >4:00</option>
-          <option >5:00</option>
-          <option >6:00</option>
-          <option >7:00</option>
-          <option >8:00</option>
-          <option >9:00</option>
-          <option >10:00</option>
-          <option >11:00</option>
-          <option >12:00</option>
-          <option >13:00</option>
-          <option >14:00</option>
-          <option >15:00</option>
-          <option >16:00</option>
-          <option >17:00</option>
-          <option >18:00</option>
-          <option >19:00</option>
-          <option >20:00</option>
-          <option >21:00</option>
-          <option >22:00</option>
-          <option >23:00</option>
-          <option selected>24:00</option>
+        <c:if test="${flagend==0 }">
+       <option selected>0:00</option>
+       </c:if>
+        <c:if test="${flagend!=0 }">
+       <option>0:00</option>
+       </c:if>
+       <c:if test="${flagend==1 }">
+       <option selected>1:00</option>
+       </c:if>
+        <c:if test="${flagend!=1 }">
+       <option>1:00</option>
+       </c:if>
+        <c:if test="${flagend==2 }">
+       <option selected>2:00</option>
+       </c:if>
+        <c:if test="${flagend!=2 }">
+       <option >2:00</option>
+       </c:if>
+        <c:if test="${flagend==3 }">
+       <option selected>3:00</option>
+       </c:if>
+       <c:if test="${flagend!=3 }">
+       <option>3:00</option>
+       </c:if>  
+       <c:if test="${flagend==4 }">
+       <option selected>4:00</option>
+       </c:if>
+       <c:if test="${flagend!=4 }">
+       <option>4:00</option>
+       </c:if>
+       <c:if test="${flagend==5 }">
+       <option selected>5:00</option>
+       </c:if>
+       <c:if test="${flagend!=5 }">
+       <option>5:00</option>
+       </c:if>
+       <c:if test="${flagend==6 }">
+       <option selected>6:00</option>
+       </c:if>
+       <c:if test="${flagend!=6 }">
+       <option>6:00</option>
+       </c:if>
+       <c:if test="${flagend==7 }">
+       <option selected>7:00</option>
+       </c:if>
+       <c:if test="${flagend!=7 }">
+       <option>7:00</option>
+       </c:if>
+       <c:if test="${flagend==8 }">
+       <option selected>8:00</option>
+       </c:if>
+       <c:if test="${flagend!=8 }">
+       <option >8:00</option>
+       </c:if>
+       <c:if test="${flagend==9 }">
+       <option selected>9:00</option>
+       </c:if>
+       <c:if test="${flagend!=9 }">
+       <option>9:00</option>
+       </c:if>
+       <c:if test="${flagend==10 }">
+       <option selected>10:00</option>
+       </c:if>
+       <c:if test="${flagend!=10 }">
+       <option>10:00</option>
+       </c:if>
+       <c:if test="${flagend==11}">
+       <option selected>11:00</option>
+       </c:if>
+       <c:if test="${flagend!=11 }">
+       <option>11:00</option>
+       </c:if>
+       <c:if test="${flagend==12 }">
+       <option selected>12:00</option>
+       </c:if>
+       <c:if test="${flagend!=12 }">
+       <option>12:00</option>
+       </c:if>
+       <c:if test="${flagend==13 }">
+       <option selected>13:00</option>
+       </c:if>
+       <c:if test="${flagend!=13 }">
+       <option>13:00</option>
+       </c:if>
+       <c:if test="${flagend==14 }">
+       <option selected>14:00</option>
+       </c:if>
+       <c:if test="${flagend!=14 }">
+       <option>14:00</option>
+       </c:if>
+       <c:if test="${flagend==15 }">
+       <option selected>15:00</option>
+       </c:if>
+       <c:if test="${flagend!=15 }">
+       <option >15:00</option>
+       </c:if>
+       <c:if test="${flagend==16 }">
+       <option selected>16:00</option>
+       </c:if>
+       <c:if test="${flagend!=16 }">
+       <option >16:00</option>
+       </c:if>
+       <c:if test="${flagend==17 }">
+       <option selected>17:00</option>
+       </c:if>
+       <c:if test="${flagend!=17 }">
+       <option>17:00</option>
+       </c:if>
+       <c:if test="${flagend==18}">
+       <option selected>18:00</option>
+       </c:if>
+       <c:if test="${flagend!=18}">
+       <option>18:00</option>
+       </c:if>
+       <c:if test="${flagend==19 }">
+       <option selected>19:00</option>
+       </c:if>
+       <c:if test="${flagend!=19 }">
+       <option>19:00</option>
+       </c:if>
+       <c:if test="${flagend==20 }">
+       <option selected>20:00</option>
+       </c:if>
+       <c:if test="${flagend!=20 }">
+       <option>20:00</option>
+       </c:if>
+       <c:if test="${flagend==21 }">
+       <option selected>21:00</option>
+       </c:if>
+       <c:if test="${flagend!=21 }">
+       <option>21:00</option>
+       </c:if>
+       <c:if test="${flagend==22 }">
+       <option selected>22:00</option>
+       </c:if>
+       <c:if test="${flagend!=22 }">
+       <option>22:00</option>
+       </c:if>
+       <c:if test="${flagend==23 }">
+       <option selected>23:00</option>
+       </c:if>
+       <c:if test="${flagend!=23 }">
+       <option>23:00</option>
+       </c:if>
+       <c:if test="${flagend==24 }">
+       <option selected>24:00</option>
+       </c:if>
+       <c:if test="${flagend!=24 }">
+       <option>24:00</option>
+       </c:if>
         </select>
       </div>
     </div>
@@ -146,32 +408,54 @@ function func2() {
       <label class="layui-form-label">活动室</label>
       <div class="layui-input-inline">
        <select id="place" name="place"  lay-verify="required" lay-search="" >
-        <c:choose>
-        <c:when test ="${f1==1}">
-          <option >活动室1</option>
-        </c:when>
-        <c:when test ="${f2==1}">
-          <option >活动室2</option>
-        </c:when>
-        <c:when test ="${f3==1}">
-          <option >活动室3</option>
-        </c:when>
-        <c:when test ="${f4==1}">
-          <option >活动室4</option>
-        </c:when>
-        <c:when test ="${f5==1}">
-          <option >活动室5</option>
-        </c:when>
-        <c:when test ="${f6==1}">
-          <option >活动室6</option>
-        </c:when>
-        <c:when test ="${f7==1}">
-          <option >活动室7</option>
-        </c:when>
-        <c:when test ="${f8==1}">
-          <option >活动室8</option>
-        </c:when>
-        </c:choose>
+        <c:if test="${flagplace==1 }">
+       <option selected>活动室1</option>
+       </c:if>
+       <c:if test="${flagplace!=1 }">
+       <option>活动室1</option>
+       </c:if>
+       <c:if test="${flagplace==2 }">
+       <option selected>活动室2</option>
+       </c:if>
+       <c:if test="${flagplace!=2 }">
+       <option>活动室2</option>
+       </c:if>
+       <c:if test="${flagplace==3 }">
+       <option selected>活动室3</option>
+       </c:if>
+       <c:if test="${flagplace!=3 }">
+       <option>活动室3</option>
+       </c:if>
+       <c:if test="${flagplace==4 }">
+       <option selected>活动室4</option>
+       </c:if>
+       <c:if test="${flagplace!=4 }">
+       <option>活动室4</option>
+       </c:if>
+       <c:if test="${flagplace==5 }">
+       <option selected>活动室5</option>
+       </c:if>
+       <c:if test="${flagplace!=5 }">
+       <option>活动室5</option>
+       </c:if>
+       <c:if test="${flagplace==6 }">
+       <option selected>活动室6</option>
+       </c:if>
+       <c:if test="${flagplace!=6 }">
+       <option>活动室6</option>
+       </c:if>
+       <c:if test="${flagplace==7 }">
+       <option selected>活动室7</option>
+       </c:if>
+       <c:if test="${flagplace!=7 }">
+       <option>活动室7</option>
+       </c:if>
+       <c:if test="${flagplace==8 }">
+       <option selected>活动室8</option>
+       </c:if>
+       <c:if test="${flagplace!=8 }">
+       <option>活动室8</option>
+       </c:if>
         </select>
       </div>
     </div>
@@ -224,9 +508,9 @@ if(enable!=null&&enable.length()>0&&enable.equals("1"))
                 	func1(); }
  </script>
 <%  
-session.setAttribute("enable",null);
+request.setAttribute("enable",null);
 	}
-if(enable!=null&&enable.length()>0&&enable.equals("0")){
+else if(enable!=null&&enable.length()>0&&enable.equals("0")){
 	
 %>
  <script type="text/javascript">
@@ -234,8 +518,32 @@ if(enable!=null&&enable.length()>0&&enable.equals("0")){
                 	func2(); }
  </script>
 <%
-session.setAttribute("enable",null);
+request.setAttribute("enable",null);
 } 
+%>
+<% String flag8 = (String)session.getAttribute("flag8");
+if(flag8!=null&&flag8.length()>0&&flag8.equals("0"))
+	
+	{%>
+ <script type="text/javascript">
+                window.onload=function(){
+                	func3(); }
+ </script>
+<%  
+session.setAttribute("flag8",null);
+	}
+%>
+<% String enableflag1 = (String)session.getAttribute("enableflag");
+if(enableflag1!=null&&enableflag1.length()>0&&enableflag1.equals("0"))
+	
+	{%>
+ <script type="text/javascript">
+                window.onload=function(){
+                	func4(); }
+ </script>
+<%  
+session.setAttribute("enableflag",null);
+	}
 %>
 </body>
 </html>
