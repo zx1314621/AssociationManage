@@ -28,8 +28,10 @@ SELECT id,password,asname,type,name,status FROM assoc where id = #{id, jdbcType=
     WHERE
     id = #{id}
  </update>
- <update id=" updateActivityByID" parameterType="po.ActivityCustom">
+ 
+ <update id="updateActivityByID" parameterType="po.ActivityCustom">
     UPDATE activity SET
+    id = #{id},
     name=#{name},
     day=#{day},
     start_time=#{start_time},
@@ -40,6 +42,7 @@ SELECT id,password,asname,type,name,status FROM assoc where id = #{id, jdbcType=
     WHERE
     id = #{id}
  </update>
+ 
 
 <insert id="addActivity" parameterType="po.ActivityCustom" useGeneratedKeys="false">
     INSERT INTO activity

@@ -16,5 +16,6 @@ public interface ActivityDao {
 	public void updatedeleteActivityStatusByID(String id)throws Exception;
 	
 	public void updateActivityByID(ActivityCustom activityCustom)throws Exception;
+	
 
 }

@@ -79,7 +79,7 @@ function func4() {
     </tr> 
   </thead>
   <tbody>
-  <form action =showticket.action method = "post">
+  <form action = showdetail.action method = "post">
 
 <c:forEach var = "activityList" items = "${activityList}">
 

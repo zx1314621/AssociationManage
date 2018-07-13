@@ -61,10 +61,14 @@ function func4() {
     <td>${activityList.as_name }</td>
     <td>${activityList.activity_status}</td>
     
+    
+    <c:if test="${activityList.status==0}"><td><button class="layui-btn layui-btn-sm layui-btn-danger" id="delete" name="delete"  type="submit"  value="${activityList.id}"><i class="layui-icon">&#xe640;</i> 取消</button></td></c:if>
+    <c:if test="${activityList.status==1}"><td><button class="layui-btn layui-btn-sm layui-btn-normal" id="edit" name="edit"  type="submit"  value="${activityList.id}"><i class="layui-icon">&#xe642;</i> 编辑</button>
+    <button class="layui-btn layui-btn-sm layui-btn-danger" id="delete" name="delete"  type="submit"  value="${activityList.id}"><i class="layui-icon">&#xe640;</i> 取消</button></td> </c:if> 
+    <c:if test="${activityList.status==2}"><td></td></c:if>
+    <c:if test="${activityList.status==3}"><td></td></c:if>
     <c:if test="${activityList.status==4}"><td></td></c:if>
-      <c:if test="${activityList.status!=4}"><td><button class="layui-btn layui-btn-sm layui-btn-normal" id="edit" name="edit"  type="submit"  value="${activityList.id}"><i class="layui-icon">&#xe642;</i> 编辑</button>
-      <button class="layui-btn layui-btn-sm layui-btn-danger" id="delete" name="delete"  type="submit"  value="${activityList.id}"><i class="layui-icon">&#xe640;</i> 删除</button></td> </c:if> 
-
+    <c:if test="${activityList.status==5}"><td></td></c:if>
 </tr>
 </c:forEach>
 </form>

@@ -337,7 +337,10 @@ public class AsController {
 					activityList.get(i).setActivity_status("申请修改中");
 				}
 				if(activityList.get(i).getStatus()==4) {
-					activityList.get(i).setActivity_status("申请删除中");
+					activityList.get(i).setActivity_status("申请取消中");
+				}
+				if(activityList.get(i).getStatus()==5) {
+					activityList.get(i).setActivity_status("已取消");
 				}
 				continue;
 			}else {
@@ -384,7 +387,10 @@ public class AsController {
 						activityList.get(i).setActivity_status("申请修改中");
 					}
 					if(activityList.get(i).getStatus()==4) {
-						activityList.get(i).setActivity_status("申请删除中");
+						activityList.get(i).setActivity_status("申请取消中");
+					}
+					if(activityList.get(i).getStatus()==5) {
+						activityList.get(i).setActivity_status("已取消");
 					}
 					continue;
 				}else {
@@ -470,5 +476,47 @@ public class AsController {
 		modelAndView.setViewName("editsuccess");
 		return modelAndView;
 		
+	}
+
+
+	@RequestMapping("/showdetail.action")
+	public ModelAndView showdetail(String activityId) throws Exception {
+		
+		List<ActivityCustom> activityList = activityService.queryActivityList();
+		ActivityCustom activityCustom = new ActivityCustom();
+		for(int i=0; i<activityList.size(); i++) {
+			if(activityList.get(i).getId().equals(activityId)) {
+				activityCustom = activityList.get(i);
+			}
+		}
+		String start_time = activityCustom.getStart_time();
+		String end_time = activityCustom.getEnd_time();
+		String[] aa = start_time.split(":");
+		String[] bb = end_time.split(":");
+		String place = activityCustom.getPlace();
+		ModelAndView modelandview = new ModelAndView();
+		if(place.equals("活动室1")) {
+			modelandview.addObject("flagplace",1);
+		}else if(place.equals("活动室2")) {
+			modelandview.addObject("flagplace",2);
+		}else if(place.equals("活动室3")) {
+			modelandview.addObject("flagplace",3);
+		}else if(place.equals("活动室4")) {
+			modelandview.addObject("flagplace",4);
+		}else if(place.equals("活动室5")) {
+			modelandview.addObject("flagplace",5);
+		}else if(place.equals("活动室6")) {
+			modelandview.addObject("flagplace",6);
+		}else if(place.equals("活动室7")) {
+			modelandview.addObject("flagplace",7);
+		}else if(place.equals("活动室8")) {
+			modelandview.addObject("flagplace",8);
+		}
+		modelandview.addObject("activityCustom",activityCustom);
+		modelandview.addObject("flagstart",aa[0]);
+		modelandview.addObject("flagend",bb[0]);
+		modelandview.setViewName("showdetail");
+		
+		return modelandview;
 	}
 }
