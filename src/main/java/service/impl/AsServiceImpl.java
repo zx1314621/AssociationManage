@@ -29,5 +29,13 @@ public class AsServiceImpl implements AsService{
 		asDao.addAs(asCustom);
 		
 	}
+	public void updateAsByID(AsCustom asCustom) throws Exception {
+		// TODO Auto-generated method stub
+		asDao.updateAsByID(asCustom);
+	}
+	public void deleteAsByid(String id) throws Exception {
+		// TODO Auto-generated method stub
+		asDao.deleteAsByid(id);
+	}
 
 }

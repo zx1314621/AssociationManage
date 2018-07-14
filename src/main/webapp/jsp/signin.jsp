@@ -40,7 +40,7 @@
     <div class="layui-input-block">
       <button class="layui-btn" lay-submit="" lay-filter="demo1">登录</button>
       <a href="signup.jsp">注册</a>
-      <a href="signup.jsp">管理员</a>
+      <a href="main.jsp">管理员</a>
     </div>
   </div>
 </form> 

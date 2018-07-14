@@ -44,5 +44,21 @@ SELECT id,password,asname,type,name,status FROM assoc where id = #{id, jdbcType=
     #{status}
     )
   </insert>
+  
+  <update id="updateAsByID" parameterType="po.AsCustom">
+    UPDATE assoc SET
+    id = #{id},
+    password=#{password},
+    asname=#{asname},
+    type=#{type},
+    name=#{name},
+    status=#{status}
+    WHERE
+    id = #{id}
+ </update>
+ 
+ <delete id="deleteAsByid" parameterType="String">
+    DELETE FROM `association`.`assoc` WHERE id = #{id}
+</delete>
 
 </mapper>

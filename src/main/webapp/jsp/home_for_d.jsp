@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 42519
-  Date: 2017/12/29
-  Time: 15:23
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -12,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>手术排班系统</title>
+    <title>社团管理系统</title>
     <link rel="stylesheet" href="layui/css/layui.css" media="all" />
     <link rel="stylesheet" href=font-awesome/css/font-awesome.css media="all" />
     <link rel="stylesheet" href="src/css/app.css" media="all" />
@@ -40,7 +33,7 @@
 <div class="layui-layout layui-layout-admin kit-layout-admin">
     <div class="layui-header">
         <div class="layui-logo">社团管理系统</div>
-        <div class="layui-logo kit-logo-mobile">K</div>
+        <div class="layui-logo kit-logo-mobile"></div>
         <div class="admin-side-full" id="fullscreen">
             <i class="fa fa-life-bouy" aria-hidden="true"></i>
         </div>
@@ -62,13 +55,13 @@
                     <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 审批注册</span></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'queryPatient.action',icon:'&#xe6c6;',title:'查看病人信息',id:'1'}">
+                            <a href="javascript:;" kit-target data-options="{url:'approveAs.action',icon:'&#xe6c6;',title:'审批社团注册信息',id:'1'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 社团注册</span></a>
                         </dd>
                     </dl>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'queryPatient.action',icon:'&#xe6c6;',title:'查看病人信息',id:'1'}">
+                            <a href="javascript:;" kit-target data-options="{url:'approveActivity.action',icon:'&#xe6c6;',title:'审批活动',id:'1'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 活动发起</span></a>
                         </dd>
                     </dl>

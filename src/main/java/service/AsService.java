@@ -15,5 +15,9 @@ public interface AsService {
 		public AsCustom findAsById(String id)throws Exception;
 		
 		public void addAs(AsCustom asCustom)throws Exception;
+		
+		public void updateAsByID(AsCustom asCustom)throws Exception;
+		
+		public void deleteAsByid(String id)throws Exception;
 
 }

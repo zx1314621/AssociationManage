@@ -14,5 +14,9 @@ public interface AsDao {
 	public AsCustom findAsById(@Param("id")String id)throws Exception;
 	
 	public void addAs(AsCustom asCustom)throws Exception;
+	
+	public void updateAsByID(AsCustom asCustom)throws Exception;
+	
+	public void deleteAsByid(String id)throws Exception;
 
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.ManagerDao" >
+
+
+
+<select id="queryManagerList" 
+resultType="po.ManagerCustom">
+SELECT id,password,name FROM manager
+</select>
+
+<!-- <select id="findAsById" parameterType="String" 
+resultType="po.AsCustom">
+SELECT id,password,asname,type,name,status FROM assoc where id = #{id, jdbcType=VARCHAR}
+</select>
+
+<update id="updateAccountById" parameterType="po.AccountCustom">
+    UPDATE account SET
+    account_id = #{account_id},
+    password = #{password},
+    balance = #{balance}
+    WHERE
+    account_id = #{account_id}
+ </update>
+ <update id="updatedeleteActivityStatusByID" parameterType="String">
+    UPDATE activity SET
+    status = 4
+    WHERE
+    id = #{id}
+ </update>
+ 
+ <update id="updateActivityByID" parameterType="po.ActivityCustom">
+    UPDATE activity SET
+    id = #{id},
+    name=#{name},
+    day=#{day},
+    start_time=#{start_time},
+    end_time=#{end_time},
+    asid=#{asid},
+    status=#{status},
+    place=#{place}
+    WHERE
+    id = #{id}
+ </update>
+ 
+
+<insert id="addActivity" parameterType="po.ActivityCustom" useGeneratedKeys="false">
+    INSERT INTO activity
+    ( id,
+      name,
+      day,
+      start_time,
+      end_time,
+      asid,
+      status,
+      place
+    )
+    VALUES
+    (
+    #{id},
+    #{name},
+    #{day},
+    #{start_time},
+    #{end_time},
+    #{asid},
+    #{status},
+    #{place}
+    )
+  </insert>
+  
+<delete id="deleteActivityByid" parameterType="String">
+    DELETE FROM `association`.`activity` WHERE id = #{id}
+</delete> -->
+</mapper>
