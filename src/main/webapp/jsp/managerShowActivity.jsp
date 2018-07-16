@@ -22,14 +22,8 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	  ,laydate = layui.laydate;	  
 });	  
 
-function func1() {
-	layer.alert('已同意!', {
-        icon: 1,
-        skin: 'layer-ext-moon' 
-    });
-}
 function func2() {
-	layer.alert('删除成功!', {
+	layer.alert('已取消!', {
         icon: 1,
         skin: 'layer-ext-moon' 
     });
@@ -38,7 +32,7 @@ function func2() {
 
 
 
-<form class="layui-form"  id="chooseForm" action="searchAsShow.action" method="post">
+<form class="layui-form"  id="chooseForm" action="managerShowActivitysearch.action" method="post">
  
 
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -47,7 +41,7 @@ function func2() {
     <div class="layui-inline">
       <label class="layui-form-label">社团编号</label>
       <div class="layui-input-inline">
-        <input type="text" class="layui-input" id="as_id" name="as_id" placeholder="社团编号">
+        <input type="text" class="layui-input" id="activity_id" name="activity_id" placeholder="活动编号">
       </div>
     </div>
     <div class="layui-input-block">
@@ -64,53 +58,31 @@ function func2() {
   </colgroup>
   <thead>
     <tr>
-      <th>社团编号</th>
-      <th>社团名称</th>
-      <th>社团类型</th>
-      <th>负责人姓名</th>
-      <th>社团状态</th>
+      <th>活动编号</th>
+      <th>活动名称</th>
+      <th>活动日期</th>
+      <th>开始时间</th>
+      <th>结束时间</th>
+      <th>活动地点</th>
+      <th>活动举办社团</th>
       <th>操作</th>
     </tr> 
   </thead>
   <tbody>
-  <form action = deleteAsShow.action method = "post">
+  <form action = managerShowActivitydelete.action method = "post">
 
-<c:forEach var = "asList" items = "${asList}">
+<c:forEach var = "activityList" items = "${activityList}">
 
-<tr >
-    <c:if test="${asList.activestatus == 0 }">
-    <td  bgcolor="#FFCCCC">${asList.id }</td>
-    </c:if>
-    <c:if test="${asList.activestatus == 1 }">
-    <td>${asList.id }</td>
-    </c:if>
-    <c:if test="${asList.activestatus == 0 }">
-    <td bgcolor="#FFCCCC">${asList.asname }</td>
-    </c:if>
-    <c:if test="${asList.activestatus == 1 }">
-    <td>${asList.asname }</td>
-    </c:if>
-    <c:if test="${asList.activestatus == 0 }">
-    <td bgcolor="#FFCCCC">${asList.type }</td>
-    </c:if>
-    <c:if test="${asList.activestatus == 1 }">
-    <td>${asList.type }</td>
-    </c:if>
-    <c:if test="${asList.activestatus == 0 }">
-    <td bgcolor="#FFCCCC">${asList.name}</td>
-    </c:if>
-    <c:if test="${asList.activestatus == 1 }">
-    <td>${asList.name}</td>
-    </c:if>
-    
-    <c:if test="${asList.activestatus == 0 }">
-    <td bgcolor="#FFCCCC">不活跃状态</td>
-    </c:if>
-    <c:if test="${asList.activestatus == 1 }">
-    <td>活跃状态</td>
-    </c:if>
+<tr>
+    <td>${activityList.id }</td>
+    <td>${activityList.name }</td>
+    <td>${activityList.day }</td>
+    <td>${activityList.start_time}:00</td>
+    <td>${activityList.end_time }:00</td>
+    <td>${activityList.place }</td>
+    <td>${activityList.as_name }</td>
       <td>
-      <button class="layui-btn layui-btn-danger" id="refuse" name="delete"  type="submit"  value="${asList.id}"><i class="layui-icon">&#x1006;</i> 删除</button></td>  
+      <button class="layui-btn layui-btn-danger" id="delete" name="delete"  type="submit"  value="${activityList.id}"><i class="layui-icon">&#x1006;</i> 取消</button></td>  
 </tr>
 </c:forEach>
 </form>
@@ -151,18 +123,6 @@ function func2() {
         });
     });
 </script>
-<% String flagapprove = (String)request.getAttribute("flagapprove");
-if(flagapprove!=null&&flagapprove.length()>0&&flagapprove.equals("1"))
-	
-	{%>
- <script type="text/javascript">
-                window.onload=function(){
-                	func1(); }
- </script>
-<%  
-request.setAttribute("flagapprove",null);
-	}
-%>
 <% String flagrefuse = (String)request.getAttribute("flagrefuse");
 if(flagrefuse!=null&&flagrefuse.length()>0&&flagrefuse.equals("1"))
 	

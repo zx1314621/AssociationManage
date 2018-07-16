@@ -70,14 +70,14 @@
                     <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 审批修改</span></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'managerAsChange.action',icon:'&#xe6c6;',title:'审批社团修改',id:'3'}">
-                                <i class="layui-icon">&#xe6c6;</i><span> 社团修改</span></a>
+                            <a href="javascript:;" kit-target data-options="{url:'managerAsChange.action',icon:'&#xe642;',title:'审批社团修改',id:'3'}">
+                                <i class="layui-icon">&#xe642;</i><span> 社团修改</span></a>
                         </dd>
                     </dl>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'managerActivityChange.action',icon:'&#xe6c6;',title:'审批活动修改',id:'4'}">
-                                <i class="layui-icon">&#xe6c6;</i><span> 活动修改</span></a>
+                            <a href="javascript:;" kit-target data-options="{url:'managerActivityChange.action',icon:'&#xe642;',title:'审批活动修改',id:'4'}">
+                                <i class="layui-icon">&#xe642;</i><span> 活动修改</span></a>
                         </dd>
                     </dl>
                 </li>
@@ -85,14 +85,14 @@
                     <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 系统信息</span></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'managerShowAs.action',icon:'&#xe6c6;',title:'社团信息',id:'5'}">
-                                <i class="layui-icon">&#xe6c6;</i><span> 社团信息</span></a>
+                            <a href="javascript:;" kit-target data-options="{url:'managerShowAs.action',icon:'&#xe615;',title:'社团信息',id:'5'}">
+                                <i class="layui-icon">&#xe615;</i><span> 社团信息</span></a>
                         </dd>
                     </dl>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'approveActivity.action',icon:'&#xe6c6;',title:'活动信息',id:'6'}">
-                                <i class="layui-icon">&#xe6c6;</i><span> 活动信息</span></a>
+                            <a href="javascript:;" kit-target data-options="{url:'managerShowActivity.action',icon:'&#xe615;',title:'活动信息',id:'6'}">
+                                <i class="layui-icon">&#xe615;</i><span> 活动信息</span></a>
                         </dd>
                     </dl>
                 </li>

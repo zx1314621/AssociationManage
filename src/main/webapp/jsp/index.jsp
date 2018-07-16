@@ -80,6 +80,18 @@ function func4() {
         content: 'queryOwnActivity.action' //iframe的url
     });
 }
+
+function func5() {
+    //iframe层
+    layer.open({
+        type: 2,
+        title: '社团信息',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['1000px', '750px'],
+        content: 'queryOwnAs.action' //iframe的url
+    });
+}
 </script>
 <body>
 	<div class="preloader">
@@ -108,6 +120,7 @@ function func4() {
 					<ul class="nav navbar-nav navbar-right"> 
 					    <c:choose>
                       <c:when test ="${flag==1}">
+                      <li class="scroll active"><a href="javascript:func5()">社团信息</a></li> 
                       <li class="scroll active"><a href="javascript:func4()">社团活动</a></li> 
                       <li class="scroll"><a href="quit.action">退出登录</a></li> 
                       </c:when>

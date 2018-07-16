@@ -519,4 +519,50 @@ public class AsController {
 		
 		return modelandview;
 	}
+	
+	@RequestMapping("/queryOwnAs.action")
+	public ModelAndView queryOwnAs(HttpSession session) throws Exception {
+		
+		String as_id = (String) session.getAttribute("as_id");
+		AsCustom asCustom = new AsCustom();
+		asCustom = asService.findAsById(as_id);
+		ModelAndView modelandview = new ModelAndView();
+		if(asCustom.getType().equals("文化")) {
+			modelandview.addObject("flag", 1);
+		}else if(asCustom.getType().equals("兴趣")) {
+			modelandview.addObject("flag", 2);
+		}else if(asCustom.getType().equals("学术")) {
+			modelandview.addObject("flag", 3);
+		}else if(asCustom.getType().equals("艺术")) {
+			modelandview.addObject("flag", 4);
+		}
+		
+		session.setAttribute("changeAS", asCustom);
+		modelandview.setViewName("queryOwnAs");
+		
+		return modelandview;
+	}
+	
+	@RequestMapping("/submitAsChange.action")
+	public ModelAndView submitAsChange(HttpSession session,String as_id,String password, String asname, String type, String name) throws Exception {
+		
+		AsCustom asCustom = new AsCustom();
+		asCustom = (AsCustom) session.getAttribute("changeAS");
+		
+		asCustom.setPassword(asCustom.getPassword() + ","+ password);
+		asCustom.setAsname(asCustom.getAsname() + "," + asname);
+		asCustom.setType(asCustom.getType() + "," + type);
+		asCustom.setName(asCustom.getName() + "," + name);
+		//修改其修改待审批态
+		//asCustom.setStatus(status);
+		asService.updateAsByID(asCustom);
+		
+		ModelAndView modelandview = new ModelAndView();
+        modelandview.addObject("flagAsChange", "1");
+		modelandview.setViewName("editsuccess");
+		
+		return modelandview;
+	}
+	
+	
 }

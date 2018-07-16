@@ -1,6 +1,5 @@
 package controller;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 
 import java.rmi.Remote;
 import java.text.SimpleDateFormat;
@@ -593,6 +592,9 @@ public class ManagerController {
 			
 			//选出该社团最近的活动
 			ActivityCustom activityCustom = new ActivityCustom();
+			if(activityList.size() == 0) {
+				continue;
+			}
 			activityCustom = activityList.get(0);
 			for(int j=0; j<activityList.size(); j++) {
 				String[] day1 = activityCustom.getDay().split("/");
@@ -682,6 +684,9 @@ public class ManagerController {
 			
 			//选出该社团最近的活动
 			ActivityCustom activityCustom = new ActivityCustom();
+			if(activityList.size() == 0) {
+				continue;
+			}
 			activityCustom = activityList.get(0);
 			for(int j=0; j<activityList.size(); j++) {
 				String[] day1 = activityCustom.getDay().split("/");
@@ -729,4 +734,90 @@ public class ManagerController {
 		
 		return modelAndView;
 	}
+
+
+	@RequestMapping("/managerShowActivity.action")
+	public ModelAndView managerShowActivity() throws Exception {
+		
+		List<ActivityCustom> activityList = new ArrayList<ActivityCustom>();
+		activityList = activityService.queryActivityList();
+		
+		for(int i=0; i<activityList.size(); i++)
+		{
+		 AsCustom asCustom = new AsCustom();
+		 asCustom = asService.findAsById(activityList.get(i).getAsid());
+		 activityList.get(i).setAs_name(asCustom.getAsname());
+		}
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.addObject("activityList", activityList);
+		modelAndView.setViewName("managerShowActivity");
+		
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping("/managerShowActivitysearch.action")
+	public ModelAndView managerShowActivitysearch(String activity_id) throws Exception {
+		ModelAndView modelAndView = new ModelAndView();
+		List<ActivityCustom> activityList = new ArrayList<ActivityCustom>();
+		activityList = activityService.queryActivityList();
+		for(int i=0; i<activityList.size(); i++)
+		{
+			 AsCustom asCustom = new AsCustom();
+		     asCustom = asService.findAsById(activityList.get(i).getAsid());
+		     activityList.get(i).setAs_name(asCustom.getAsname());
+		}
+		if(activity_id.equals("") == false) {			
+		for(int i=0; i<activityList.size(); i++)
+		{
+		 if(activityList.get(i).getId().equals(activity_id)) {
+			 continue;
+		 }else {
+			 activityList.remove(i);
+			 i--;
+		 }
+		}
+		}
+		
+		
+		
+		modelAndView.addObject("activityList", activityList);
+		modelAndView.setViewName("managerShowActivity");
+		
+		
+		return modelAndView;
+	}
+
+	
+	@RequestMapping("/managerShowActivitydelete.action")
+	public ModelAndView managerShowActivitydelete(String delete) throws Exception {
+		ModelAndView modelAndView = new ModelAndView();
+		if(delete != null) {
+			activityService.deleteActivityByid(delete);
+			modelAndView.addObject("flagrefuse", "1");
+		}
+		
+		List<ActivityCustom> activityList = new ArrayList<ActivityCustom>();
+		activityList = activityService.queryActivityList();
+		
+		for(int i=0; i<activityList.size(); i++)
+		{
+		 AsCustom asCustom = new AsCustom();
+		 asCustom = asService.findAsById(activityList.get(i).getAsid());
+		 activityList.get(i).setAs_name(asCustom.getAsname());
+		}
+		
+		
+		
+		modelAndView.addObject("activityList", activityList);
+		modelAndView.setViewName("managerShowActivity");
+		
+		
+		return modelAndView;
+	}
+
+
+
 }
