@@ -276,7 +276,11 @@ public class AsController {
 			modelandview.setViewName("signupfailed");
 			return modelandview;
 		}
-		
+		if(asCustom.getStatus()==1)
+		{
+			String aa[] = asCustom.getPassword().split(",");
+			asCustom.setPassword(aa[0]);
+		}
 		if(asCustom.getPassword().equals(password)) {
 			
 			int flag = 1;
@@ -323,6 +327,10 @@ public class AsController {
 		asCustom = asService.findAsById(as_id);
 		for(int i=0; i<activityList.size(); i++) {
 			if(activityList.get(i).getAsid().equals(as_id)) {
+				if(asCustom.getStatus()==1) {
+					String[] aa = asCustom.getAsname().split(",");
+					asCustom.setAsname(aa[0]);
+				}
 				activityList.get(i).setAs_name(asCustom.getAsname());
 				if(activityList.get(i).getStatus()==0) {
 					activityList.get(i).setActivity_status("还未审批");
@@ -554,7 +562,7 @@ public class AsController {
 		asCustom.setType(asCustom.getType() + "," + type);
 		asCustom.setName(asCustom.getName() + "," + name);
 		//修改其修改待审批态
-		//asCustom.setStatus(status);
+		asCustom.setStatus(1);
 		asService.updateAsByID(asCustom);
 		
 		ModelAndView modelandview = new ModelAndView();

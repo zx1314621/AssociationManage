@@ -504,6 +504,16 @@ public class ManagerController {
 		List<AsCustom> asList = new ArrayList<AsCustom>();
 		asList = asService.queryAsList();		
 		for(int i=0; i<asList.size(); i++) {
+			if(asList.get(i).getStatus() == 1) {
+				String pp[] = asList.get(i).getPassword().split(",");
+				String as[] = asList.get(i).getAsname().split(",");
+				String ty[] = asList.get(i).getType().split(",");
+				String na[] = asList.get(i).getName().split(",");
+				asList.get(i).setPassword(pp[0]);
+				asList.get(i).setAsname(as[0]);
+				asList.get(i).setType(ty[0]);
+				asList.get(i).setName(na[0]);
+			}
 			asList.get(i).setActivestatus("1");
 			
 			
@@ -577,7 +587,16 @@ public class ManagerController {
 		asList = asService.queryAsList();		
 		for(int i=0; i<asList.size(); i++) {
 			asList.get(i).setActivestatus("1");
-			
+			if(asList.get(i).getStatus() == 1) {
+				String pp[] = asList.get(i).getPassword().split(",");
+				String as[] = asList.get(i).getAsname().split(",");
+				String ty[] = asList.get(i).getType().split(",");
+				String na[] = asList.get(i).getName().split(",");
+				asList.get(i).setPassword(pp[0]);
+				asList.get(i).setAsname(as[0]);
+				asList.get(i).setType(ty[0]);
+				asList.get(i).setName(na[0]);
+			}
 			
 			List<ActivityCustom> activityList = new ArrayList<ActivityCustom>();
 			activityList = activityService.queryActivityList();
@@ -746,6 +765,10 @@ public class ManagerController {
 		{
 		 AsCustom asCustom = new AsCustom();
 		 asCustom = asService.findAsById(activityList.get(i).getAsid());
+		 if(asCustom.getStatus() == 1) {
+			 String aa[] = asCustom.getAsname().split(",");
+			 asCustom.setAsname(aa[0]);
+		 }
 		 activityList.get(i).setAs_name(asCustom.getAsname());
 		}
 		
@@ -767,6 +790,10 @@ public class ManagerController {
 		{
 			 AsCustom asCustom = new AsCustom();
 		     asCustom = asService.findAsById(activityList.get(i).getAsid());
+		     if(asCustom.getStatus() == 1) {
+				 String aa[] = asCustom.getAsname().split(",");
+				 asCustom.setAsname(aa[0]);
+			 }
 		     activityList.get(i).setAs_name(asCustom.getAsname());
 		}
 		if(activity_id.equals("") == false) {			
