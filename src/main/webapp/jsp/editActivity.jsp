@@ -459,6 +459,7 @@ function func4() {
         </select>
       </div>
     </div>
+    <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1" name="check" id="check" value="123">检测是否可用</button>
 </div>
   
  <div class="layui-form-item">

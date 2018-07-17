@@ -288,6 +288,15 @@ public class ManagerController {
 			if(asList.get(i).getStatus()!=1) {
 				asList.remove(i);
 				i--;
+			}else {
+				String pp[] = asList.get(i).getPassword().split(",");
+				String as[] = asList.get(i).getAsname().split(",");
+				String ty[] = asList.get(i).getType().split(",");
+				String na[] = asList.get(i).getName().split(",");
+				asList.get(i).setPassword(pp[1]);
+				asList.get(i).setAsname(as[1]);
+				asList.get(i).setType(ty[1]);
+				asList.get(i).setName(na[1]);		
 			}
 		}
 		
@@ -311,6 +320,15 @@ public class ManagerController {
 			if(asList.get(i).getStatus()!=1) {
 				asList.remove(i);
 				i--;
+			}else {
+				String pp[] = asList.get(i).getPassword().split(",");
+				String as[] = asList.get(i).getAsname().split(",");
+				String ty[] = asList.get(i).getType().split(",");
+				String na[] = asList.get(i).getName().split(",");
+				asList.get(i).setPassword(pp[1]);
+				asList.get(i).setAsname(as[1]);
+				asList.get(i).setType(ty[1]);
+				asList.get(i).setName(na[1]);
 			}
 		}
 		if(as_id.equals("")==false) {
@@ -339,11 +357,29 @@ public class ManagerController {
 		if(approve!=null) {
 			asCustom = asService.findAsById(approve);
 			asCustom.setStatus(2);
+			String pp[] = asCustom.getPassword().split(",");
+			String as[] = asCustom.getAsname().split(",");
+			String ty[] = asCustom.getType().split(",");
+			String na[] = asCustom.getName().split(",");
+			asCustom.setPassword(pp[1]);
+			asCustom.setAsname(as[1]);
+			asCustom.setType(ty[1]);
+			asCustom.setName(na[1]);	
 			asService.updateAsByID(asCustom);
 			modelAndView.addObject("flagapprove", "1");
 		}
 		else if(refuse!=null) {
-			asService.deleteAsByid(refuse);
+			asCustom = asService.findAsById(refuse);
+			asCustom.setStatus(2);
+			String pp[] = asCustom.getPassword().split(",");
+			String as[] = asCustom.getAsname().split(",");
+			String ty[] = asCustom.getType().split(",");
+			String na[] = asCustom.getName().split(",");
+			asCustom.setPassword(pp[0]);
+			asCustom.setAsname(as[0]);
+			asCustom.setType(ty[0]);
+			asCustom.setName(na[0]);	
+			asService.updateAsByID(asCustom);
 			modelAndView.addObject("flagrefuse", "1");
 		}
 		
@@ -386,7 +422,21 @@ public class ManagerController {
 			}else {
 				AsCustom asCustom = new AsCustom();
 				asCustom = asService.findAsById(activityList.get(i).getAsid());
+				if(asCustom.getStatus() == 1) {
+					String []aa = asCustom.getAsname().split(",");
+					asCustom.setAsname(aa[0]);
+				}
 				activityList.get(i).setAs_name(asCustom.getAsname());
+				String [] name = activityList.get(i).getName().split(",");
+				String [] day = activityList.get(i).getDay().split(",");
+				String [] start = activityList.get(i).getStart_time().split(",");
+				String [] end = activityList.get(i).getEnd_time().split(",");
+				String [] place = activityList.get(i).getPlace().split(",");
+				activityList.get(i).setName(name[1]);
+				activityList.get(i).setDay(day[1]);
+				activityList.get(i).setStart_time(start[1]);
+				activityList.get(i).setEnd_time(end[1]);
+				activityList.get(i).setPlace(place[1]);
 			}
 		}
 		
@@ -415,7 +465,21 @@ public class ManagerController {
 			}else {
 				AsCustom asCustom = new AsCustom();
 				asCustom = asService.findAsById(activityList.get(i).getAsid());
+				if(asCustom.getStatus() == 1) {
+					String []aa = asCustom.getAsname().split(",");
+					asCustom.setAsname(aa[0]);
+				}
 				activityList.get(i).setAs_name(asCustom.getAsname());
+				String [] name = activityList.get(i).getName().split(",");
+				String [] day = activityList.get(i).getDay().split(",");
+				String [] start = activityList.get(i).getStart_time().split(",");
+				String [] end = activityList.get(i).getEnd_time().split(",");
+				String [] place = activityList.get(i).getPlace().split(",");
+				activityList.get(i).setName(name[1]);
+				activityList.get(i).setDay(day[1]);
+				activityList.get(i).setStart_time(start[1]);
+				activityList.get(i).setEnd_time(end[1]);
+				activityList.get(i).setPlace(place[1]);
 			}
 		}
 		
@@ -455,12 +519,42 @@ public class ManagerController {
 					activityCustom = activityList.get(i);
 				}
 			}
+		    
 			activityCustom.setStatus(1);
+			String [] name = activityCustom.getName().split(",");
+			String [] day = activityCustom.getDay().split(",");
+			String [] start = activityCustom.getStart_time().split(",");
+			String [] end = activityCustom.getEnd_time().split(",");
+			String [] place = activityCustom.getPlace().split(",");
+			activityCustom.setName(name[1]);
+			activityCustom.setDay(day[1]);
+			activityCustom.setStart_time(start[1]);
+			activityCustom.setEnd_time(end[1]);
+			activityCustom.setPlace(place[1]);
 			activityService.updateActivityByID(activityCustom);
 			modelAndView.addObject("flagapprove", "1");
 		}
 		else if(refuse!=null) {
-			activityService.deleteActivityByid(refuse);
+			
+			for(int i=0; i<activityList.size(); i++) {
+				if(activityList.get(i).getId().equals(refuse))
+				{
+					activityCustom = activityList.get(i);
+				}
+			}
+		    
+			activityCustom.setStatus(1);
+			String [] name = activityCustom.getName().split(",");
+			String [] day = activityCustom.getDay().split(",");
+			String [] start = activityCustom.getStart_time().split(",");
+			String [] end = activityCustom.getEnd_time().split(",");
+			String [] place = activityCustom.getPlace().split(",");
+			activityCustom.setName(name[0]);
+			activityCustom.setDay(day[0]);
+			activityCustom.setStart_time(start[0]);
+			activityCustom.setEnd_time(end[0]);
+			activityCustom.setPlace(place[0]);
+			activityService.updateActivityByID(activityCustom);
 			modelAndView.addObject("flagrefuse", "1");
 		}
 		
@@ -770,6 +864,19 @@ public class ManagerController {
 			 asCustom.setAsname(aa[0]);
 		 }
 		 activityList.get(i).setAs_name(asCustom.getAsname());
+		 
+		 if(activityList.get(i).getStatus()==3) {
+				String [] name = activityList.get(i).getName().split(",");
+				String [] day = activityList.get(i).getDay().split(",");
+				String [] start = activityList.get(i).getStart_time().split(",");
+				String [] end = activityList.get(i).getEnd_time().split(",");
+				String [] place = activityList.get(i).getPlace().split(",");
+				activityList.get(i).setName(name[0]);
+				activityList.get(i).setDay(day[0]);
+				activityList.get(i).setStart_time(start[0]);
+				activityList.get(i).setEnd_time(end[0]);
+				activityList.get(i).setPlace(place[0]);
+			}
 		}
 		
 		ModelAndView modelAndView = new ModelAndView();
@@ -795,6 +902,18 @@ public class ManagerController {
 				 asCustom.setAsname(aa[0]);
 			 }
 		     activityList.get(i).setAs_name(asCustom.getAsname());
+		     if(activityList.get(i).getStatus()==3) {
+					String [] name = activityList.get(i).getName().split(",");
+					String [] day = activityList.get(i).getDay().split(",");
+					String [] start = activityList.get(i).getStart_time().split(",");
+					String [] end = activityList.get(i).getEnd_time().split(",");
+					String [] place = activityList.get(i).getPlace().split(",");
+					activityList.get(i).setName(name[0]);
+					activityList.get(i).setDay(day[0]);
+					activityList.get(i).setStart_time(start[0]);
+					activityList.get(i).setEnd_time(end[0]);
+					activityList.get(i).setPlace(place[0]);
+				}
 		}
 		if(activity_id.equals("") == false) {			
 		for(int i=0; i<activityList.size(); i++)

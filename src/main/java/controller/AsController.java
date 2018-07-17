@@ -75,6 +75,19 @@ public class AsController {
 			AsCustom asCustom = new AsCustom();
 			asCustom = asService.findAsById(activityList.get(i).getAsid());
 			activityList.get(i).setAs_name(asCustom.getAsname());
+			
+			if(activityList.get(i).getStatus()==3) {
+				String [] name = activityList.get(i).getName().split(",");
+				String [] day = activityList.get(i).getDay().split(",");
+				String [] start = activityList.get(i).getStart_time().split(",");
+				String [] end = activityList.get(i).getEnd_time().split(",");
+				String [] place = activityList.get(i).getPlace().split(",");
+				activityList.get(i).setName(name[0]);
+				activityList.get(i).setDay(day[0]);
+				activityList.get(i).setStart_time(start[0]);
+				activityList.get(i).setEnd_time(end[0]);
+				activityList.get(i).setPlace(place[0]);
+			}
 		}
         if(activity_id!="") {
         	for(int i=0; i<activityList.size(); i++) {
@@ -343,6 +356,16 @@ public class AsController {
 				}
 				if(activityList.get(i).getStatus()==3) {
 					activityList.get(i).setActivity_status("申请修改中");
+					String [] name = activityList.get(i).getName().split(",");
+					String [] day = activityList.get(i).getDay().split(",");
+					String [] start = activityList.get(i).getStart_time().split(",");
+					String [] end = activityList.get(i).getEnd_time().split(",");
+					String [] place = activityList.get(i).getPlace().split(",");
+					activityList.get(i).setName(name[0]);
+					activityList.get(i).setDay(day[0]);
+					activityList.get(i).setStart_time(start[0]);
+					activityList.get(i).setEnd_time(end[0]);
+					activityList.get(i).setPlace(place[0]);
 				}
 				if(activityList.get(i).getStatus()==4) {
 					activityList.get(i).setActivity_status("申请取消中");
@@ -460,8 +483,40 @@ public class AsController {
 	}
 	
 	@RequestMapping("/submitEdit.action")
-	public ModelAndView submitEdit(String activity_id, String activity_name, String day, String start_time, String end_time
+	public ModelAndView submitEdit(String check,String activity_id, String activity_name, String day, String start_time, String end_time
 			,String place) throws Exception {
+		if(check!=null&&check.equals("123")){
+			String[] aa = start_time.split(":");
+			String[] bb = end_time.split(":");
+			ActivityCustom activityCustom = new ActivityCustom();
+			activityCustom.setId(activity_id);
+			activityCustom.setName(activity_name);
+			activityCustom.setDay(day);
+			ModelAndView modelandView = new ModelAndView();
+			if(place.equals("活动室1")) {
+				modelandView.addObject("flagplace",1);
+			}else if(place.equals("活动室2")) {
+				modelandView.addObject("flagplace",2);
+			}else if(place.equals("活动室3")) {
+				modelandView.addObject("flagplace",3);
+			}else if(place.equals("活动室4")) {
+				modelandView.addObject("flagplace",4);
+			}else if(place.equals("活动室5")) {
+				modelandView.addObject("flagplace",5);
+			}else if(place.equals("活动室6")) {
+				modelandView.addObject("flagplace",6);
+			}else if(place.equals("活动室7")) {
+				modelandView.addObject("flagplace",7);
+			}else if(place.equals("活动室8")) {
+				modelandView.addObject("flagplace",8);
+			}
+			modelandView.addObject("activityCustom",activityCustom);
+			modelandView.addObject("enable","1");
+			modelandView.addObject("flagstart",aa[0]);
+			modelandView.addObject("flagend",bb[0]);
+			modelandView.setViewName("editActivity");
+			return modelandView;
+		}
 		ActivityCustom activityCustom = new ActivityCustom();
 		List<ActivityCustom> activityList = activityService.queryActivityList();
 		for(int i=0; i<activityList.size(); i++) {
@@ -469,13 +524,13 @@ public class AsController {
 				activityCustom = activityList.get(i);
 			}
 		}
-		activityCustom.setName(activity_name);
-		activityCustom.setDay(day);
+		activityCustom.setName(activityCustom.getName() +","+ activity_name);
+		activityCustom.setDay(activityCustom.getDay() +","+ day);
 		String[] aa = start_time.split(":");
 		String[] bb = end_time.split(":");
-		activityCustom.setStart_time(aa[0]);
-		activityCustom.setEnd_time(bb[0]);
-		activityCustom.setPlace(place);
+		activityCustom.setStart_time(activityCustom.getStart_time() +","+ aa[0]);
+		activityCustom.setEnd_time(activityCustom.getEnd_time() +","+ bb[0]);
+		activityCustom.setPlace(activityCustom.getPlace() +","+ place);
 		activityCustom.setStatus(3);
 		
 		activityService.updateActivityByID(activityCustom);
@@ -534,6 +589,16 @@ public class AsController {
 		String as_id = (String) session.getAttribute("as_id");
 		AsCustom asCustom = new AsCustom();
 		asCustom = asService.findAsById(as_id);
+		if(asCustom.getStatus()==1) {
+			String pp[] = asCustom.getPassword().split(",");
+			String as[] = asCustom.getAsname().split(",");
+			String ty[] = asCustom.getType().split(",");
+			String na[] = asCustom.getName().split(",");
+			asCustom.setPassword(pp[0]);
+			asCustom.setAsname(as[0]);
+			asCustom.setType(ty[0]);
+			asCustom.setName(na[0]);
+		}
 		ModelAndView modelandview = new ModelAndView();
 		if(asCustom.getType().equals("文化")) {
 			modelandview.addObject("flag", 1);
@@ -568,6 +633,20 @@ public class AsController {
 		ModelAndView modelandview = new ModelAndView();
         modelandview.addObject("flagAsChange", "1");
 		modelandview.setViewName("editsuccess");
+		
+		return modelandview;
+	}
+	
+	@RequestMapping("/quit.action")
+	public ModelAndView quit(HttpSession session) throws Exception {
+		
+		int flag = 2;
+		session.setAttribute("flag", flag); 
+		session.setAttribute("as_id",null);
+		
+		ModelAndView modelandview = new ModelAndView();
+        modelandview.addObject("quit", "1");
+		modelandview.setViewName("index");
 		
 		return modelandview;
 	}

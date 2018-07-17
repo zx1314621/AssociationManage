@@ -92,6 +92,13 @@ function func5() {
         content: 'queryOwnAs.action' //iframe的url
     });
 }
+
+function func6() {
+	layer.alert('已退出登录!', {
+        icon: 1,
+        skin: 'layer-ext-moon' 
+    });
+}
 </script>
 <body>
 	<div class="preloader">
@@ -191,5 +198,17 @@ function func5() {
 	<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script> 
 	<script type="text/javascript" src="js/jquery.parallax.js"></script> 
 	<script type="text/javascript" src="js/main.js"></script> 
+<% String quit = (String)request.getAttribute("quit");
+if(quit!=null&&quit.length()>0&&quit.equals("1"))
+	
+	{%>
+ <script type="text/javascript">
+                window.onload=function(){
+                	func6(); }
+ </script>
+<%  
+request.setAttribute("quit",null);
+	}
+%>
 </body>
 </html>
