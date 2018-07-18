@@ -28,6 +28,12 @@ function func4() {
         skin: 'layer-ext-moon' 
     });
 }
+function func5() {
+	layer.alert('删除申请已撤回!', {
+        icon: 1,
+        skin: 'layer-ext-moon' 
+    });
+}
 </script> 
  <table class="layui-table">
   <colgroup>
@@ -66,7 +72,7 @@ function func4() {
     <c:if test="${activityList.status==1}"><td><button class="layui-btn layui-btn-sm layui-btn-normal" id="edit" name="edit"  type="submit"  value="${activityList.id}"><i class="layui-icon">&#xe642;</i> 编辑</button>
     <button class="layui-btn layui-btn-sm layui-btn-danger" id="delete" name="delete"  type="submit"  value="${activityList.id}"><i class="layui-icon">&#xe640;</i> 取消</button></td> </c:if> 
     <c:if test="${activityList.status==2}"><td></td></c:if>
-    <c:if test="${activityList.status==3}"><td></td></c:if>
+    <c:if test="${activityList.status==3}"><td><button class="layui-btn layui-btn-sm layui-btn-danger" id="delete" name="delete"  type="submit"  value="${activityList.id}"><i class="layui-icon">&#xe640;</i> 取消</button></td></c:if>
     <c:if test="${activityList.status==4}"><td></td></c:if>
     <c:if test="${activityList.status==5}"><td></td></c:if>
 </tr>
@@ -116,6 +122,18 @@ if(deleteflag!=null&&deleteflag.length()>0&&deleteflag.equals("1"))
  <script type="text/javascript">
                 window.onload=function(){
                 	func4(); }
+ </script>
+<%  
+request.setAttribute("deleteflag",null);
+	}
+%>
+<% String deleteflag1 = (String)request.getAttribute("deleteflag");
+if(deleteflag1!=null&&deleteflag1.length()>0&&deleteflag1.equals("2"))
+	
+	{%>
+ <script type="text/javascript">
+                window.onload=function(){
+                	func5(); }
  </script>
 <%  
 request.setAttribute("deleteflag",null);

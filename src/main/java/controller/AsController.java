@@ -394,10 +394,36 @@ public class AsController {
 	public ModelAndView editactivity(HttpSession session,String edit, String delete) throws Exception {
 		
 		if(delete!=null) {
-			activityService.updatedeleteActivityStatusByID(delete);
-			
-			
+			ModelAndView modelandview = new ModelAndView();
 			List<ActivityCustom> activityList = activityService.queryActivityList();
+			
+		    ActivityCustom activityCustom = new ActivityCustom();
+		    for(int i=0; i<activityList.size(); i++) {
+		    	if(activityList.get(i).getId().equals(delete)) {
+		    		activityCustom = activityList.get(i);
+		    	}
+		    }
+		    
+		    if(activityCustom.getStatus() == 3) {
+		    	String [] name = activityCustom.getName().split(",");
+				String [] day = activityCustom.getDay().split(",");
+				String [] start = activityCustom.getStart_time().split(",");
+				String [] end = activityCustom.getEnd_time().split(",");
+				String [] place = activityCustom.getPlace().split(",");
+				activityCustom.setName(name[0]);
+				activityCustom.setDay(day[0]);
+				activityCustom.setStart_time(start[0]);
+				activityCustom.setEnd_time(end[0]);
+				activityCustom.setPlace(place[0]);
+				activityCustom.setStatus(1);
+				activityService.updateActivityByID(activityCustom);
+				modelandview.addObject("deleteflag","2");
+		    }else {
+		    	activityService.updatedeleteActivityStatusByID(delete);
+		    	modelandview.addObject("deleteflag","1");
+		    }
+			
+			
 			AsCustom asCustom  = new AsCustom();
 			
 			String as_id = (String) session.getAttribute("as_id");
@@ -429,9 +455,8 @@ public class AsController {
 					i--;
 				}
 			}
-			ModelAndView modelandview = new ModelAndView();
 			modelandview.addObject("activityList",activityList);
-			modelandview.addObject("deleteflag","1");
+			
 			modelandview.setViewName("showorder");
 			
 			return modelandview;
